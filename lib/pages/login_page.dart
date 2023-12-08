@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import 'cubits/chat_cubit/chat_cubit.dart';
+
 // ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -31,7 +33,8 @@ class LoginPage extends StatelessWidget {
           isLoading = true;
         }
         else if (state is LoginSuccess) {
-          Navigator.pushNamed(context, ChatPage.routName , arguments: email);
+          BlocProvider.of<ChatCubit>(context).getMessage();
+          Navigator.pushNamed(context, ChatPage.routeName , arguments: email);
           isLoading = false;
         }
         else if (state is LoginFailure) {

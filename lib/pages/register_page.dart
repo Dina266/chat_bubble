@@ -3,6 +3,7 @@
 import 'package:chat_app/constants.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
 import 'package:chat_app/pages/chat_page.dart';
+import 'package:chat_app/pages/cubits/chat_cubit/chat_cubit.dart';
 import 'package:chat_app/pages/cubits/register_cubit/register_cubit.dart';
 import 'package:chat_app/widgets/custom_buttom.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
@@ -30,7 +31,8 @@ class SignUpPage extends StatelessWidget {
           isLoading = true;
         }
         else if (state is RegisterSuccess) {
-          Navigator.pushNamed(context, ChatPage.routName , arguments: email);
+          BlocProvider.of<ChatCubit>(context).getMessage();
+          Navigator.pushNamed(context, ChatPage.routeName , arguments: email);
           isLoading = false;
         }
         else if (state is RegisterFailure) {
@@ -99,7 +101,10 @@ class SignUpPage extends StatelessWidget {
                     CustomButtom(
                       title: 'Sign Up',
                       onTap: () async {
-                        if (formKey.currentState!.validate()) {}
+                        if (formKey.currentState!.validate()) {
+                          BlocProvider.of<RegisterCubit>(context).
+                        registerUser(email: email!, password: password!);
+                        }
                       },
                     ),
                     const SizedBox(
