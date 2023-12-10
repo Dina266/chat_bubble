@@ -16,11 +16,14 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  BlocOverrides.runZoned(() {
-    runApp(const ScholarChat());
-  },
-  blocObserver: SimpleBlocObserver(),
-  );
+  Bloc.observer = SimpleBlocObserver();
+  runApp(const ScholarChat());
+
+  // BlocOverrides.runZoned(() {
+  //   runApp(const ScholarChat());
+  // },
+  // blocObserver: SimpleBlocObserver(),
+  // );
   
 }
 
